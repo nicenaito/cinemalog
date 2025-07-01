@@ -4,9 +4,9 @@ import RecordForm from '@/components/records/RecordForm'
 import { Metadata } from 'next'
 
 interface PageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 export const metadata: Metadata = {
@@ -15,6 +15,7 @@ export const metadata: Metadata = {
 }
 
 export default async function EditRecordPage({ params }: PageProps) {
+  const { id } = await params
   const supabase = await createServerComponentClient()
   
   const {
@@ -29,7 +30,7 @@ export default async function EditRecordPage({ params }: PageProps) {
   const { data: record, error } = await supabase
     .from('records')
     .select('*')
-    .eq('id', params.id)
+    .eq('id', id)
     .eq('user_id', user.id) // Only allow editing own records
     .single()
 

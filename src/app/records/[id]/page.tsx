@@ -5,12 +5,13 @@ import RecordDetail from '@/components/records/RecordDetail'
 import { Metadata } from 'next'
 
 interface PageProps {
-  params: {
+  params: Promise<{
     id: string
-  }
+  }>
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
+  const { id } = await params
   const supabase = await createServerComponentClient()
   
   const { data: record } = await supabase
@@ -19,7 +20,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       *,
       movies (title)
     `)
-    .eq('id', params.id)
+    .eq('id', id)
     .single()
 
   return {
@@ -33,6 +34,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 }
 
 export default async function RecordDetailPage({ params }: PageProps) {
+  const { id } = await params
   const supabase = await createServerComponentClient()
   
   const {
@@ -52,7 +54,7 @@ export default async function RecordDetailPage({ params }: PageProps) {
       places (name, place_type, address),
       users (display_name, email)
     `)
-    .eq('id', params.id)
+    .eq('id', id)
     .single()
 
   if (error || !record) {
