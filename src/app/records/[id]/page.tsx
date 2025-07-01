@@ -1,4 +1,4 @@
-import { createServerComponentClient } from '@/lib/supabase-client'
+import { createServerComponentClient } from '@/lib/supabase-server'
 import { redirect, notFound } from 'next/navigation'
 // Make sure the file exists at src/components/records/RecordDetail.tsx
 import RecordDetail from '@/components/records/RecordDetail'

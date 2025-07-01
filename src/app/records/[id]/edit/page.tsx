@@ -1,4 +1,4 @@
-import { createServerComponentClient } from '@/lib/supabase-client'
+import { createServerComponentClient } from '@/lib/supabase-server'
 import { redirect, notFound } from 'next/navigation'
 import RecordForm from '@/components/records/RecordForm'
 import { Metadata } from 'next'
