@@ -19,7 +19,7 @@ export default async function RecordsPage({
   searchParams: Promise<SearchParams>
 }) {
   const params = await searchParams
-  const supabase = createServerComponentClient()
+  const supabase = await createServerComponentClient()
   
   const {
     data: { user },
@@ -59,7 +59,7 @@ export default async function RecordsPage({
     .eq('user_id', user.id)
 
   const years = allRecords
-    ? [...new Set(allRecords.map(r => new Date(r.watched_at).getFullYear()))]
+    ? ([...new Set(allRecords.map(r => new Date(r.watched_at).getFullYear()))] as number[])
         .sort((a, b) => b - a)
     : []
 

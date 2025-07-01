@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 }
 
 export default async function NewRecordPage() {
-  const supabase = createServerComponentClient()
+  const supabase = await createServerComponentClient()
   
   const {
     data: { user },
