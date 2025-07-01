@@ -2,8 +2,8 @@ import { createServerClient } from '@supabase/ssr'
 import { cookies } from 'next/headers'
 import { type Database } from './supabase'
 
-export function createServerComponentClient() {
-  const cookieStore = cookies()
+export async function createServerComponentClient() {
+  const cookieStore = await cookies()
   return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
@@ -17,8 +17,8 @@ export function createServerComponentClient() {
   )
 }
 
-export function createRouteHandlerClient() {
-  const cookieStore = cookies()
+export async function createRouteHandlerClient() {
+  const cookieStore = await cookies()
   return createServerClient<Database>(
     process.env.NEXT_PUBLIC_SUPABASE_URL!,
     process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
