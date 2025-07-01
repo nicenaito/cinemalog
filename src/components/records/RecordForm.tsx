@@ -97,8 +97,12 @@ export default function RecordForm({ movies, places, initialData }: RecordFormPr
 
       router.push('/dashboard')
       router.refresh()
-    } catch (error: any) {
-      setError(error.message || 'エラーが発生しました')
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message)
+      } else {
+        setError('エラーが発生しました')
+      }
     } finally {
       setLoading(false)
     }
@@ -130,8 +134,12 @@ export default function RecordForm({ movies, places, initialData }: RecordFormPr
       // Reset form
       setNewMovie({ title: '', director: '', release_year: '', genre: '' })
       setShowNewMovieForm(false)
-    } catch (error: any) {
-      setError(error.message || '映画の追加に失敗しました')
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message)
+      } else {
+        setError('映画の追加に失敗しました')
+      }
     }
   }
 
@@ -160,8 +168,12 @@ export default function RecordForm({ movies, places, initialData }: RecordFormPr
       // Reset form
       setNewPlace({ name: '', address: '', place_type: 'theater' })
       setShowNewPlaceForm(false)
-    } catch (error: any) {
-      setError(error.message || '場所の追加に失敗しました')
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message)
+      } else {
+        setError('場所の追加に失敗しました')
+      }
     }
   }
 

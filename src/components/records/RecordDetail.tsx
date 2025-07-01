@@ -87,8 +87,12 @@ export default function RecordDetail({ record, comments, currentUserId, isOwner 
 
       setLocalComments(prev => [...prev, data])
       setNewComment('')
-    } catch (error: any) {
-      setError(error.message || 'コメントの投稿に失敗しました')
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message)
+      } else {
+        setError('コメントの投稿に失敗しました')
+      }
     } finally {
       setSubmittingComment(false)
     }
@@ -110,8 +114,12 @@ export default function RecordDetail({ record, comments, currentUserId, isOwner 
       if (error) throw error
 
       router.push('/dashboard')
-    } catch (error: any) {
-      setError(error.message || '記録の削除に失敗しました')
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message)
+      } else {
+        setError('記録の削除に失敗しました')
+      }
       setDeletingRecord(false)
     }
   }

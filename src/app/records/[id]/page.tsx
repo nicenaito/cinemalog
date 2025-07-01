@@ -88,7 +88,9 @@ export default async function RecordDetailPage({ params }: PageProps) {
   )
 }
 
-async function checkIfFriend(supabase: any, userId: string, recordUserId: string): Promise<boolean> {
+import { type SupabaseClient } from '@supabase/supabase-js'
+
+async function checkIfFriend(supabase: SupabaseClient, userId: string, recordUserId: string): Promise<boolean> {
   const { data } = await supabase
     .from('friends')
     .select('id')

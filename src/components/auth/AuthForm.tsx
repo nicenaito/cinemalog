@@ -55,8 +55,12 @@ export default function AuthForm({ mode }: AuthFormProps) {
           router.refresh()
         }
       }
-    } catch (error: any) {
-      setError(error.message || 'エラーが発生しました')
+    } catch (error) {
+      if (error instanceof Error) {
+        setError(error.message)
+      } else {
+        setError('エラーが発生しました')
+      }
     } finally {
       setLoading(false)
     }
