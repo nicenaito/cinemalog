@@ -16,7 +16,7 @@ export const metadata: Metadata = {
 
 export default async function EditRecordPage({ params }: PageProps) {
   const { id } = await params
-  const supabase = await createServerComponentClient()
+  const supabase = createServerComponentClient()
   
   const {
     data: { user },

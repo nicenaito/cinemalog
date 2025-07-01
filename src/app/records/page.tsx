@@ -16,9 +16,10 @@ interface SearchParams {
 export default async function RecordsPage({
   searchParams,
 }: {
-  searchParams: SearchParams
+  searchParams: Promise<SearchParams>
 }) {
-  const supabase = await createServerComponentClient()
+  const params = await searchParams
+  const supabase = createServerComponentClient()
   
   const {
     data: { user },
@@ -40,8 +41,8 @@ export default async function RecordsPage({
     .order('watched_at', { ascending: false })
 
   // Apply year filter
-  if (searchParams.year) {
-    const year = parseInt(searchParams.year)
+  if (params.year) {
+    const year = parseInt(params.year)
     query = query.gte('watched_at', `${year}-01-01`).lt('watched_at', `${year + 1}-01-01`)
   }
 
@@ -67,8 +68,8 @@ export default async function RecordsPage({
       <RecordsList 
         records={records || []} 
         years={years}
-        currentYear={searchParams.year}
-        searchTerm={searchParams.search}
+        currentYear={params.year}
+        searchTerm={params.search}
       />
     </div>
   )

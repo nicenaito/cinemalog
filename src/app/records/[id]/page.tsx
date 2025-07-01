@@ -12,7 +12,7 @@ interface PageProps {
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {
   const { id } = await params
-  const supabase = await createServerComponentClient()
+  const supabase = createServerComponentClient()
   
   const { data: record } = await supabase
     .from('records')
@@ -35,7 +35,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
 export default async function RecordDetailPage({ params }: PageProps) {
   const { id } = await params
-  const supabase = await createServerComponentClient()
+  const supabase = createServerComponentClient()
   
   const {
     data: { user },
